@@ -3,13 +3,21 @@ import React from 'react';
 import classes from './Burger.css'
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
-const burger = () => (
-    <div className={classes.Burger}>
-        <BurgerIngredient type="bread-top"/>
-        <BurgerIngredient type="cheese"/>
-        <BurgerIngredient type="meat"/>
-        <BurgerIngredient type="bread-bottom"/>
-    </div>
-);
+const burger = (props) => {
+
+    const ingredientsList = Object.keys(props.ingredients).map((type) => {
+        return [...Array(props.ingredients[type])].map((_, index) => {
+            return (<BurgerIngredient key={type+index} type={type}/>);
+        });
+    });
+
+    return (
+        <div className={classes.Burger}>
+            <BurgerIngredient type="bread-top"></BurgerIngredient>
+            {ingredientsList}
+            <BurgerIngredient type="bread-bottom"></BurgerIngredient>
+        </div>
+    )
+};
 
 export default burger;
