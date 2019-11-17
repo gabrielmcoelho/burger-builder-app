@@ -54,11 +54,22 @@ class BurgerBuilder extends Component {
     };
 
     render() {
+
+        /* if there's no ingredient X, disable X's less button */
+        const disableLessButtons = {
+            ...this.state.ingredients
+        };
+
+        for(let type in disableLessButtons) {
+            disableLessButtons[type] = disableLessButtons[type] <= 0;
+        }
+
         return (
           <Aux>
               <Burger ingredients={this.state.ingredients}/>
               <BuildControls addIngredients={this.addIngredientHandler}
-                             removeIngredients={this.removeIngredientHandler}/>
+                             removeIngredients={this.removeIngredientHandler}
+                             disableLessButtons={disableLessButtons}/>
           </Aux>
         );
     }
