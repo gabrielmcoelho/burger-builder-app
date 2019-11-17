@@ -74,6 +74,10 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false});
     };
 
+    purchaseContinueHandler = () => {
+        alert("sent info to server!");
+    };
+
     render() {
 
         /* if there's no ingredient X, disable X's less button */
@@ -88,7 +92,8 @@ class BurgerBuilder extends Component {
         return (
           <Aux>
               <Modal show={this.state.purchasing} hideModal={this.purchaseCancelHandler}>
-                  <OrderSummary ingredients={this.state.ingredients}/>
+                  <OrderSummary cancelPurchase={this.purchaseCancelHandler} continuePurchase={this.purchaseContinueHandler}
+                                ingredients={this.state.ingredients}/>
               </Modal>
               <Burger ingredients={this.state.ingredients}/>
               <BuildControls price={this.state.totalPrice}
