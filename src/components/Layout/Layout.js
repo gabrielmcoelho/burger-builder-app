@@ -16,9 +16,7 @@ class Layout extends Component {
     };
 
     hamburgerClickedHandler = () => {
-        this.setState((prevState) => {
-            this.setState({showSideDrawer: !prevState.showSideDrawer});
-        })
+        this.setState(prevState => ({showSideDrawer: !prevState.showSideDrawer}));
     };
 
     render () {
