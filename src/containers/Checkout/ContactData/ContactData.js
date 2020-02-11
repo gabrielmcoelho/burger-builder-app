@@ -5,15 +5,58 @@ import Spinner from '../../../components/UI/Spinner/Spinner'
 import classes from './ContactData.css';
 import axios from "../../../axios-orders";
 import { withRouter } from 'react-router-dom';
+import Input from '../../../components/UI/Input/Input'
 
 class ContactData extends Component {
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            zipCode: '',
-            country: ''
+        order: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Street'
+                },
+                value: ''
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ZIP Code'
+                },
+                value: ''
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Country'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [{display: 'fastest', value: 'fastest'}, {display: 'cheapest', value: 'cheapest'}]
+                },
+                value: ''
+            },
+            deliveryMethod: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            }
         },
         loading: false
     };
@@ -53,11 +96,11 @@ class ContactData extends Component {
         else{
             form = (
                 <form>
-                    <input className={classes.Input} type="text" name="name" placeholder="Your name"/>
-                    <input className={classes.Input} type="email" name="email" placeholder="Your email"/>
-                    <input className={classes.Input} type="text" name="country" placeholder="Country"/>
-                    <input className={classes.Input} type="text" name="street" placeholder="Street"/>
-                    <input className={classes.Input} type="text" name="postal" placeholder="Postal code"/>
+                    <Input inputtype="input" type="text" name="name" placeholder="Your name"/>
+                    <Input inputtype="input" type="email" name="email" placeholder="Your email"/>
+                    <Input inputtype="input" type="text" name="country" placeholder="Country"/>
+                    <Input inputtype="input" type="text" name="street" placeholder="Street"/>
+                    <Input inputtype="input" type="text" name="postal" placeholder="Postal code"/>
                     <Button type="Success" clickHandler={this.orderHandler}>ORDER</Button>
                 </form>
             );
