@@ -43,17 +43,17 @@ class ContactData extends Component {
                 value: ''
             },
             email: {
-                elementType: 'select',
+                elementType: 'input',
                 elementConfig: {
-                    options: [{display: 'fastest', value: 'fastest'}, {display: 'cheapest', value: 'cheapest'}]
+                    type: 'email',
+                    placeholder: 'Your email'
                 },
                 value: ''
             },
             deliveryMethod: {
-                elementType: 'input',
+                elementType: 'select',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'Your Name'
+                    options: [{display: 'fastest', value: 'fastest'}, {display: 'cheapest', value: 'cheapest'}]
                 },
                 value: ''
             }
@@ -88,19 +88,28 @@ class ContactData extends Component {
             })
     };
 
+    inputChangedHandler = (event, inputName) => {
+        const newOrder = {...this.state.order};
+        newOrder[inputName].value = event.target.value;
+        this.setState({order: newOrder});
+    };
+
     render() {
         let form = null;
+        let inputs = [];
         if(this.state.loading) {
             form = <Spinner/>
         }
         else{
+
+            for(let input in this.state.order) {
+                inputs.push(<Input key={input} name={input} elementType={this.state.order[input].elementType}
+                                     elementConfig={this.state.order[input].elementConfig} changed={(event) => this.inputChangedHandler(event, input)}/>);
+            }
+
             form = (
                 <form>
-                    <Input inputtype="input" type="text" name="name" placeholder="Your name"/>
-                    <Input inputtype="input" type="email" name="email" placeholder="Your email"/>
-                    <Input inputtype="input" type="text" name="country" placeholder="Country"/>
-                    <Input inputtype="input" type="text" name="street" placeholder="Street"/>
-                    <Input inputtype="input" type="text" name="postal" placeholder="Postal code"/>
+                    {inputs}
                     <Button type="Success" clickHandler={this.orderHandler}>ORDER</Button>
                 </form>
             );
