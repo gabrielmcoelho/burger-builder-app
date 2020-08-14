@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from '../../axios-orders';
 import * as actionCreators from '../../store/actions/burgerBuilder';
+import * as actionCreators2 from '../../store/actions/order';
 
 import Aux from '../../hoc/Aux/Aux'
 import Burger from '../../components/Burger/Burger'
@@ -10,7 +11,6 @@ import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-
 
 class BurgerBuilder extends Component {
 
@@ -40,6 +40,7 @@ class BurgerBuilder extends Component {
     };
 
     purchaseContinueHandler = () => {
+        this.props.purchaseBurgerStart();
         this.props.history.push('/checkout');
     };
 
@@ -99,7 +100,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ingName) => dispatch(actionCreators.addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(actionCreators.removeIngredient(ingName)),
-        fetchIngredients: () => dispatch(actionCreators.fetchIngredients())
+        fetchIngredients: () => dispatch(actionCreators.fetchIngredients()),
+        purchaseBurgerStart: () => dispatch(actionCreators2.purchaseBurgerStart())
     }
 }
 
