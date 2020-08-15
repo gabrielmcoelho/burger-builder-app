@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
     orders: [],
@@ -6,43 +7,31 @@ const initialState = {
     purchased: false
 };
 
+const registerNewOrder = (state, payload) => {
+    const newOrder = {
+        data: payload.orderData,
+        id: payload.orderId
+    }
+    return updateObject(state, {
+        orders: state.orders.concat(newOrder),
+        purchased: true
+    });
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.PURCHASE_BURGER_START:
-            return {
-                ...state,
-                purchased: false
-            };
+            return updateObject(state, {purchased: false});
         case actionTypes.PURCHASE_BURGER_SUCCESS:
-            const newOrder = {
-                data: action.payload.orderData,
-                id: action.payload.orderId
-            }
-            return {
-                ...state,
-                orders: state.orders.concat(newOrder),
-                purchased: true
-            };
+            return registerNewOrder(state, action.payload);
         case actionTypes.PURCHASE_BURGER_FAIL:
-            return {
-                ...state
-            };
+            return updateObject(state, {});
         case actionTypes.FETCH_ORDERS_START:
-            return {
-                ...state,
-                loading: true
-            };
+            return updateObject(state, {loading: true});
         case actionTypes.FETCH_ORDERS_SUCCESS:
-            return {
-                ...state,
-                orders: action.orders,
-                loading: false
-            };
+            return updateObject(state, {orders: action.orders, loading: false});
             case actionTypes.FETCH_ORDERS_FAIL:
-            return {
-                ...state,
-                loading: false
-            };
+            return updateObject(state, {loading: false});
         default: return state;
     }
 };
