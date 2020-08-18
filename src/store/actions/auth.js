@@ -23,6 +23,12 @@ export const authFail = (error) => {
     };
 };
 
+export const authLogout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    }
+}
+
 export const authSignup = (email, password) => {
     return dispatch => {
         dispatch(authStart());
@@ -33,9 +39,10 @@ export const authSignup = (email, password) => {
         }).then(response => {
             console.log(response);
             dispatch(authSuccess(response.data));
+            dispatch(authLogoutAfterTimeExpires(response.data.expiresIn));
         }).catch(error => {
             console.log(error);
-            dispatch(authFail(error));
+            dispatch(authFail(error.response.data.error));
         })
     };
 };
@@ -50,9 +57,18 @@ export const authSignin = (email, password) => {
         }).then(response => {
             console.log(response);
             dispatch(authSuccess(response.data));
+            dispatch(authLogoutAfterTimeExpires(response.data.expiresIn));
         }).catch(error => {
             console.log(error);
-            dispatch(authFail(error));
+            dispatch(authFail(error.response.data.error));
         })
+    };
+};
+
+export const authLogoutAfterTimeExpires = (expirationTime) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(authLogout())
+        }, expirationTime*1000)
     };
 };

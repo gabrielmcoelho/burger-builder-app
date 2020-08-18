@@ -22,7 +22,7 @@ const sideDrawer = (props) => {
                     <Logo/>
                 </div>
                 <nav>
-                    <NavigationItems/>
+                    <NavigationItems isAuthenticated={props.isAuthenticated}/>
                 </nav>
             </div>
         </Aux>
@@ -31,7 +31,8 @@ const sideDrawer = (props) => {
 
 sideDrawer.propTypes = {
   open: PropTypes.bool,
-  backdropClicked: PropTypes.func
+  backdropClicked: PropTypes.func,
+  isAuthenticated: PropTypes.bool
 };
 
 export default sideDrawer;

@@ -13,13 +13,14 @@ const toolbar = (props) => (
             <Logo/>
         </div>
         <nav className={classes.DesktopOnly}>
-            <NavigationItems/>
+            <NavigationItems isAuthenticated={props.isAuthenticated}/>
         </nav>
     </header>
 );
 
 toolbar.propTypes = {
-    openSideDrawer: PropTypes.func
+    openSideDrawer: PropTypes.func,
+    isAuthenticated: PropTypes.bool
 };
 
 export default toolbar;
