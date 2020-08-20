@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from '../../axios-orders';
 import * as actionCreators from '../../store/actions/burgerBuilder';
 import * as actionCreators2 from '../../store/actions/order';
+import * as actionCreators3 from '../../store/actions/auth';
 
 import Aux from '../../hoc/Aux/Aux'
 import Burger from '../../components/Burger/Burger'
@@ -35,7 +36,8 @@ class BurgerBuilder extends Component {
         if(this.props.isAuthenticated){
             this.setState({purchasing: true});
         } else {
-            this.props.history.push('/login');
+            this.props.setAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
         }
     };
 
@@ -107,7 +109,8 @@ const mapDispatchToProps = dispatch => {
         onIngredientAdded: (ingName) => dispatch(actionCreators.addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(actionCreators.removeIngredient(ingName)),
         fetchIngredients: () => dispatch(actionCreators.fetchIngredients()),
-        purchaseBurgerStart: () => dispatch(actionCreators2.purchaseBurgerStart())
+        purchaseBurgerStart: () => dispatch(actionCreators2.purchaseBurgerStart()),
+        setAuthRedirectPath: (path) => dispatch(actionCreators3.setAuthRedirectPath(path))
     }
 }
 
