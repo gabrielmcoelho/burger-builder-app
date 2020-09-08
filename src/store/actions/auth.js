@@ -44,11 +44,9 @@ export const authSignup = (email, password) => {
             password: password,
             returnSecureToken: true
         }).then(response => {
-            console.log(response);
             dispatch(authSuccess(response.data));
             dispatch(authLogoutAfterTimeExpires(response.data.expiresIn));
         }).catch(error => {
-            console.log(error);
             dispatch(authFail(error.response.data.error));
         })
     };
@@ -62,11 +60,9 @@ export const authSignin = (email, password) => {
             password: password,
             returnSecureToken: true
         }).then(response => {
-            console.log(response);
             dispatch(authSuccess(response.data));
             dispatch(authLogoutAfterTimeExpires(response.data.expiresIn));
         }).catch(error => {
-            console.log(error);
             dispatch(authFail(error.response.data.error));
         })
     };
